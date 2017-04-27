@@ -46,6 +46,7 @@
     <Compile Include="FactoryDrinks.cs" />
     <Compile Include="IceTea.cs" />
     <Compile Include="IDrink.cs" />
+    <Compile Include="IExpresso.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tea.cs" />
   </ItemGroup>
