@@ -1,12 +1,15 @@
-﻿namespace AcuCafe
+﻿using System.IO;
+
+namespace AcuCafe
 {
-    public class Expresso : Drink
+    public class Expresso : Drink, IExpresso
     {
-        // The Expresso class; based on Drink with overrides and extended to make it specificaly Expressio
+        // The Expresso class; based on Drink with overrides and extendes to make it specificaly Expressio
         // Highly likely to change so it would be best to pass it in from the outside in a product app.
+        // So keeps the Drink class closed and gains some inteface seperation, as the Tea's don't require the extras Expresso needs.
         public const double ChocToppingCost = 0.5;
 
-        public bool HasChocTopping;
+        public bool HasChocTopping { get; set; }
 
         public override string Description
         {
@@ -32,34 +35,19 @@
             return cost;
         }
 
-        public void ChocTopping(bool hasChocTopping)
-        {
-            HasChocTopping = hasChocTopping;
-        }
-
         public override void Prepare()
         {
-            if (Description == null)
-                Message = "Error creating drink.";
+
+            base.Prepare();
+            if (Message.StartsWith("Error"))
+                //If we have an errormessage the just return from here and don't add to the message.
+                return;
+
+            if (HasChocTopping)
+                Message += " with chocolate topping";
             else
-            {
-                Message = "We are preparing the following drink for you: " + Description;
-                if (HasMilk)
-                    Message += " with milk";
-                else
-                    Message += " without milk";
-
-                if (HasSugar)
-                    Message += " with sugar";
-                else
-                    Message += " without sugar";
-
-                if (HasChocTopping)
-                    Message += " with chocolate topping";
-                else
-                    Message += " without chocolate topping";
-            }
-
+                Message += " without chocolate topping";
         }
+
     }
 }

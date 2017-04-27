@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Xml;
 
 namespace AcuCafe
@@ -18,13 +19,14 @@ namespace AcuCafe
                 drink.HasSugar = hasSugar;
                 if (drink.Description == "Expresso")
                 {
-                    // Cast drink to Expresso to be access the extra properties it has.
-                    Expresso expresso = (Expresso) drink;
+                    // Cast drink to Expresso to access the extra properties it has.
+                    var expresso = (IExpresso) drink;
                     expresso.HasChocTopping = hasChocTopping;
                 }
 
                 drink.Prepare();
-
+                Console.WriteLine(drink.Message);
+                // To be made available to whatever theparent application is for propper display.
             }
             catch (Exception ex)
             {
@@ -32,7 +34,7 @@ namespace AcuCafe
                 //System.IO.File.WriteAllText(@"c:\Error.txt", ex.ToString());
                 //Need toget some sort of loger in here, probably don't have access right to c:\
                 // and thats a bad place to be writing error messages.
-                //TODO
+                File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\Error.txt", ex.ToString());
             }
 
             return drink;

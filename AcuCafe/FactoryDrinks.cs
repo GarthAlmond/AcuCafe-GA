@@ -9,7 +9,7 @@ namespace AcuCafe
     static class FactoryDrinks
     {
         //Discovered this a while ago on a Java project.
-        //Similar thing in C#. Works well when creatingobjects like this.
+        //Same in C#. Works well when creating objects like this.
         public static IDrink GetDrink(string type)
         {
             IDrink drink = null;
